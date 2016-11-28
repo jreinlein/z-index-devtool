@@ -3,7 +3,8 @@ const {createStoreFixture} = require('./fixtures/store-fixture');
 const {textMarkup, mockGetTextModule} = require('./fixtures/utils');
 const {
   expandNode,
-  collapseNode
+  collapseNode,
+  toggleNode
 } = require('../src/actions/stacking-context');
 
 describe('store fixture', function () {
@@ -54,7 +55,7 @@ describe('node collapse', function () {
   it('collapse tree nodes', function (done) {
     createStoreFixture().then((store) => {
       let expandedNodes = store.getState().stackingContext.expandedNodes;
-      assert.equal(expandedNodes.size, 0, "init- Size of expandedNodes 0");
+      assert.equal(expandedNodes.size, 0, "[init] Size of expandedNodes 0");
       const tree = store.getState().stackingContext.tree;
       store.dispatch(expandNode(tree[0]));
       store.dispatch(expandNode(tree[1]));
@@ -75,4 +76,29 @@ describe('node collapse', function () {
   });
 
   //todo: child nodes
+});
+
+
+describe('node toggle', function () {
+  it('toggle a node twice (expand, collapse)', function (done) {
+    createStoreFixture().then((store) => {
+      let expandedNodes = store.getState().stackingContext.expandedNodes;
+      assert.equal(expandedNodes.size, 0, "[init] Size of expandedNodes 0 by default");
+      const tree = store.getState().stackingContext.tree;
+      assert.equal(expandedNodes.has(tree[0]), false, "[init] expandedNodes should not contain the toggled node");
+
+      store.dispatch(toggleNode(tree[0]));
+      expandedNodes = store.getState().stackingContext.expandedNodes;
+      assert.equal(expandedNodes.size, 1, "Size of expandedNodes 1 after first toggle");
+      assert.equal(expandedNodes.has(tree[0]), true, "expandedNodes should contain the toggled node");
+
+      store.dispatch(toggleNode(tree[0]));
+      expandedNodes = store.getState().stackingContext.expandedNodes;
+      assert.equal(expandedNodes.size, 0, "Size of expandedNodes back to 0 after second toggle");
+      assert.notEqual(expandedNodes.has(tree[0]), true, "expandedNodes should no longer contain the node after two toggles");
+      done();
+    }).catch((err) => {
+      done(err);
+    });
+  });
 });
