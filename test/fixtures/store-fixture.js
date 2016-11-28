@@ -14,7 +14,7 @@ function getStore() {
   );
 };
 
-function createStoreFixture(){
+function createStoreFixture() {
   const store = getStore();
   return store.dispatch(
     fetchNewDomText('test/test.html', mockGetTextModule)

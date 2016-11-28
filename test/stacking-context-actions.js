@@ -6,30 +6,30 @@ const {
   collapseNode
 } = require('../src/actions/stacking-context');
 
-describe('store fixture', function() {
-    it('has url & text', function(done) {
-      createStoreFixture().then((store) =>{
-        assert.equal(store.getState().stackingContext.url, 'test/test.html', "URL");
-        assert.equal(store.getState().stackingContext.text, textMarkup, "Markup");
-        done();
-      }).catch((err) => {
-        done(err);
-      });
+describe('store fixture', function () {
+  it('has url & text', function (done) {
+    createStoreFixture().then((store) => {
+      assert.equal(store.getState().stackingContext.url, 'test/test.html', "URL");
+      assert.equal(store.getState().stackingContext.text, textMarkup, "Markup");
+      done();
+    }).catch((err) => {
+      done(err);
     });
-    it('has tree', function(done) {
-      createStoreFixture().then((store) =>{
-        assert.notEqual(store.getState().stackingContext.tree, undefined, "Tree exists");
-        assert.equal(store.getState().stackingContext.tree.length, 2, "Size of Tree");
-        done();
-      }).catch((err) => {
-        done(err);
-      });
+  });
+  it('has tree', function (done) {
+    createStoreFixture().then((store) => {
+      assert.notEqual(store.getState().stackingContext.tree, undefined, "Tree exists");
+      assert.equal(store.getState().stackingContext.tree.length, 2, "Size of Tree");
+      done();
+    }).catch((err) => {
+      done(err);
     });
+  });
 });
 
-describe('node expansion', function() {
-  it('expand tree nodes', function(done) {
-    createStoreFixture().then((store) =>{
+describe('node expansion', function () {
+  it('expand tree nodes', function (done) {
+    createStoreFixture().then((store) => {
       let expandedNodes = store.getState().stackingContext.expandedNodes;
       assert.equal(expandedNodes.size, 0, "Size of expandedNodes 0");
       const tree = store.getState().stackingContext.tree;
@@ -50,9 +50,9 @@ describe('node expansion', function() {
   //todo: child nodes
 });
 
-describe('node collapse', function() {
-  it('collapse tree nodes', function(done) {
-    createStoreFixture().then((store) =>{
+describe('node collapse', function () {
+  it('collapse tree nodes', function (done) {
+    createStoreFixture().then((store) => {
       let expandedNodes = store.getState().stackingContext.expandedNodes;
       assert.equal(expandedNodes.size, 0, "init- Size of expandedNodes 0");
       const tree = store.getState().stackingContext.tree;

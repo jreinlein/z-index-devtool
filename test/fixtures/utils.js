@@ -54,9 +54,9 @@ const textMarkupLines = [
 
 const textMarkup = textMarkupLines.join("");
 
-function mockGetTextModule(url){
+function mockGetTextModule(url) {
   var p1 = new Promise(
-    function(resolve, reject){
+    function (resolve, reject) {
       resolve(textMarkup);
     }
   );
@@ -64,6 +64,6 @@ function mockGetTextModule(url){
 };
 
 module.exports = {
-      textMarkup,
-      mockGetTextModule
-    };
+  textMarkup,
+  mockGetTextModule
+};
